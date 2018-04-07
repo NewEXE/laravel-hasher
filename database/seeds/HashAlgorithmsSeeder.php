@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use App\Models\HashAlgorithm;
+use App\Facades\HMACHasher;
 
 class HashAlgorithmsSeeder extends Seeder
 {
@@ -15,12 +16,11 @@ class HashAlgorithmsSeeder extends Seeder
     {
         if(Schema::hasTable(HashAlgorithm::getTableName()))
         {
-            /** @var array $algos */
-            $algos = hash_hmac_algos();
+            $algos = HMACHasher::getAllAvailableAlgos();
 
             foreach ($algos as $algo)
             {
-                HashAlgorithm::firstOrCreate(['name' => $algo]);
+                HashAlgorithm::firstOrCreate(['name' => HMACHasher::getRowsPrefix() . $algo]);
             }
 
         }
