@@ -20,7 +20,7 @@ class CreateUserHashesTable extends Migration
             $table->text('hash_algorithm_key');
             $table->text('hash');
             $table->timestamps();
-            $table->foreign('vocabulary_id')->references('id')->on('vocabularies');
+            $table->foreign('vocabulary_id')->references('id')->on('vocabulary');
             $table->foreign('hash_algorithm_id')->references('id')->on('hash_algorithms');
         });
     }
