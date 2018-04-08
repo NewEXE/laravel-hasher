@@ -42,7 +42,14 @@ class HmacHasherRepository implements HasherRepositoryInterface
     }
 
 
-    public function encode(string $string, $algos = null)
+    /**
+     * @param string $string
+     * @param null $algos
+     * @return bool
+     * @throws AlgorithmNotImplementedException
+     * @throws BadParamPassedException
+     */
+    public function encode(string $string, $algos = null): bool
     {
         $availableAlgos = $this->getAllAvailableAlgos();
         $passedAlgos = [];
@@ -74,12 +81,14 @@ class HmacHasherRepository implements HasherRepositoryInterface
             else throw new AlgorithmNotImplementedException('Algorithm not exists!');
         }
 
+        return true;
+
     }
 
     /**
      * @return array
      */
-    public function getEncoded()
+    public function getEncoded(): array
     {
         return $this->hashes;
     }
@@ -87,7 +96,7 @@ class HmacHasherRepository implements HasherRepositoryInterface
     /**
      * @return array
      */
-    public function getAllAvailableAlgos()
+    public function getAllAvailableAlgos(): array
     {
         return hash_hmac_algos();
     }
@@ -95,17 +104,17 @@ class HmacHasherRepository implements HasherRepositoryInterface
     /**
      * @return string
      */
-    public function getRowsPrefix()
+    public function getRowsPrefix(): string
     {
         return $this->rowsPrefix;
     }
 
     /**
-     *
+     * @return bool
      */
-    public function saveEncoded()
+    public function saveEncoded(): bool
     {
-
+        return true;
     }
 
     private function _encodeString(string $string, string $algo)

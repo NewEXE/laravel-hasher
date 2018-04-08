@@ -19,26 +19,26 @@ interface HasherRepositoryInterface
      * @param null $algos
      * @return mixed
      */
-    public function encode(string $text, $algos = null);
+    public function encode(string $text, $algos = null): bool;
 
     /**
      * @return array
      */
-    public function getEncoded();
+    public function getEncoded(): array;
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function saveEncoded();
+    public function saveEncoded(): bool;
 
     /**
      * @return array
      */
-    public function getAllAvailableAlgos();
+    public function getAllAvailableAlgos(): array;
 
     /**
      * @return string
      */
-    public function getRowsPrefix();
+    public function getRowsPrefix(): string;
 
 }

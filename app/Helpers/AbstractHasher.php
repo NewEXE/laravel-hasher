@@ -30,6 +30,24 @@ abstract class AbstractHasher
     }
 
     /**
+     * @param $text
+     * @param null $algos
+     * @return bool
+     */
+    public function encode($text, $algos = null)
+    {
+        return $this->repository->encode($text, $algos);
+    }
+
+    /**
+     * @return array
+     */
+    public function getEncoded()
+    {
+        return $this->repository->getEncoded();
+    }
+
+    /**
      * @return array
      */
     public function getAllAvailableAlgos()
