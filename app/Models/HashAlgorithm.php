@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class HashAlgorithm extends Model
+/**
+ * Class HashAlgorithm
+ * @package App\Models
+ */
+class HashAlgorithm extends BaseModel
 {
-    /**
-     * @return string Model's table name
-     */
-    public static function getTableName()
-    {
-        return with(new static)->getTable();
-    }
+
 }

@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'HasherController@index');
+Route::resource('/user-hashes', 'UserHashesController');

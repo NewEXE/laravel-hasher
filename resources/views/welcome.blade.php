@@ -82,6 +82,24 @@
                     Laravel
                 </div>
 
+                <form action="{{ route('user-hashes.store') }}" method="post">
+                    {{ csrf_field() }}
+
+                    <select name="inputAlgorithms[]" multiple>
+                        @foreach($algorithms as $algo)
+                        <option value="{{ $algo->id }}">{{ $algo->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <select name="inputWords[]" multiple>
+                        @foreach($words as $word)
+                            <option value="{{ $word->id }}">{{ $word->word }}</option>
+                        @endforeach
+                    </select>
+
+                    <input type="submit" />
+                </form>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

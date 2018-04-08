@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Vocabulary extends Model
+/**
+ * Class Vocabulary
+ * @package App\Models
+ */
+class Vocabulary extends BaseModel
 {
     /**
      * @var string Database table name
