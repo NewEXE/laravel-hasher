@@ -19,15 +19,35 @@ class User extends Authenticatable
         'id', 'ip', 'user_agent', 'country',
     ];
 
+    /**
+     * @var object
+     */
+    private $geoData;
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $geoData = GeoData::get();
+        $this->geoData = GeoData::get();
 
-        $this->ip = $geoData->query;
+        $this->ip = $this->geoData->query;
         $this->user_agent = request()->server('HTTP_USER_AGENT');
-        $this->country = $geoData->country;
+        $this->country = $this->geoData->country;
+    }
+
+    /**
+     * @param array $options
+     * @return bool|void
+     */
+    public function saveIfNotExists(array $options = [])
+    {
+        $existingUser = User::where('ip', $this->ip)->first();
+        if ($existingUser)
+        {
+            return;
+        }
+
+        return $this->save($options);
     }
 
 }
