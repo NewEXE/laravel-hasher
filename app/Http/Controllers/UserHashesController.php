@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Facades\HMACHasher;
 use App\Models\HashAlgorithm;
 use App\Models\User;
-use App\Models\UserHash;
 use App\Models\Vocabulary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

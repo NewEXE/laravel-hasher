@@ -38,6 +38,6 @@ class UserHash extends Model
      */
     public function algorithm()
     {
-        return $this->belongsTo(HashAlgorithm::class);
+        return $this->belongsTo(HashAlgorithm::class, 'hash_algorithm_id');
     }
 }
