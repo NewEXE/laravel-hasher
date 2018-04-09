@@ -11,6 +11,7 @@ use App\Exceptions\Hasher\AlgorithmNotImplementedException;
 use App\Exceptions\Hasher\BadParamPassedException;
 use App\Models\HashAlgorithm;
 use App\Models\User;
+use App\Models\UserHash;
 use App\Models\Vocabulary;
 use Illuminate\Support\Collection;
 
@@ -107,8 +108,6 @@ class HmacHasherRepository implements HasherRepositoryInterface
      */
     public function encodeMany($user, $items, $algos = null): bool
     {
-        dd($user, $items, $algos);
-
         $availableAlgos = $this->getAllAvailableAlgos();
 
         foreach ($items as $item)
@@ -165,7 +164,7 @@ class HmacHasherRepository implements HasherRepositoryInterface
      */
     public function saveEncoded(): bool
     {
-        return true;
+        return empty($this->hashes) ? false : UserHash::insert($this->hashes);
     }
 
     /**

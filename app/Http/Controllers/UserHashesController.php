@@ -46,17 +46,19 @@ class UserHashesController extends Controller
     {
         $user = $user->saveIfNotExists();
 
+        /** @var Collection $words */
+        $words = Vocabulary::whereIn('id', $request->inputWords)->get(['id', 'word'])->keyBy('id');
+
         /** @var Collection $algorithms */
         $algorithms = HashAlgorithm::whereIn('id', $request->inputAlgorithms)->get(['id', 'name'])->keyBy('id');
 
-        $words = Vocabulary::whereIn('id', $request->inputWords)->get(['id', 'word']);
-
         HMACHasher::encodeMany($user, $words, $algorithms);
+
+//        HMACHasher::saveEncoded();
 
         $hashes = HMACHasher::getEncoded();
 
-        dump($hashes);
-
+        dd($hashes);
     }
 
     /**

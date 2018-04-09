@@ -13,4 +13,12 @@ class HashAlgorithm extends BaseModel
     {
         return $query->where('name', 'like', HMACHasher::getRowsPrefix() . '%');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hashes()
+    {
+        return $this->hasMany(UserHash::class);
+    }
 }

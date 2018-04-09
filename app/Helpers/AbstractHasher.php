@@ -30,23 +30,26 @@ abstract class AbstractHasher
     }
 
     /**
+     * @param $user
      * @param $text
      * @param null $algos
+     * @param $availableAlgos
      * @return bool
      */
-    public function encode($text, $algos = null)
+    public function encode($user, $text, $algos, $availableAlgos)
     {
-        return $this->repository->encode($text, $algos);
+        return $this->repository->encode($user, $text, $algos, $availableAlgos);
     }
 
     /**
-     * @param $texts
+     * @param $user
+     * @param $strings
      * @param $algos
      * @return bool
      */
-    public function encodeMany($texts, $algos)
+    public function encodeMany($user, $strings, $algos)
     {
-        return $this->repository->encodeMany($texts, $algos);
+        return $this->repository->encodeMany($user, $strings, $algos);
     }
 
     /**
@@ -55,6 +58,14 @@ abstract class AbstractHasher
     public function getEncoded()
     {
         return $this->repository->getEncoded();
+    }
+
+    /**
+     * @return bool
+     */
+    public function saveEncoded(): bool
+    {
+        return $this->repository->saveEncoded();
     }
 
     /**
