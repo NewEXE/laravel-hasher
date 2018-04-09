@@ -1,113 +1,47 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<!DOCTYPE html>
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
+        <meta charset="UTF-8">
+        <title>Page Title</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+        <link rel="stylesheet" href="{{ asset('js/chosen/chosen.css') }}" />
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+    <h2>Laravel Hasher</h2>
 
-                <form action="{{ route('store') }}" method="post">
-                    {{ csrf_field() }}
+    <form action="{{ route('store') }}" method="post">
+        {{ csrf_field() }}
 
-                    <select name="inputAlgorithms[]" multiple>
-                        @foreach($algorithms as $algo)
-                        <option value="{{ $algo->id }}">{{ $algo->name }}</option>
-                        @endforeach
-                    </select>
+        <p>Select algorithm(s) or left blank for all possible:</p>
+        <select data-placeholder="Select..." class="chosen-select" name="inputAlgorithms[]" multiple>
+            <option></option>
+            @foreach($algorithms as $algo)
+                <option value="{{ $algo->id }}">{{ $algo->name }}</option>
+            @endforeach
+        </select>
 
-                    <select name="inputWords[]" multiple>
-                        @foreach($words as $word)
-                            <option value="{{ $word->id }}">{{ $word->word }}</option>
-                        @endforeach
-                    </select>
+        <p>Select at least one word for hashing:</p>
+        <select data-placeholder="Select..." class="chosen-select" name="inputWords[]" multiple>
+            <option></option>
+            @foreach($words as $word)
+                <option value="{{ $word->id }}">{{ $word->word }}</option>
+            @endforeach
+        </select>
 
-                    <input type="submit" />
-                </form>
+        <input type="submit" />
+    </form>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
+    <!-- Scripts: jQuery, Chosen and main.js -->
+    <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
     </body>
 </html>
