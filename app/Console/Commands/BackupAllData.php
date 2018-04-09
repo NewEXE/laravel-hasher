@@ -12,7 +12,7 @@ class BackupAllData extends Command
     /**
      * @var string
      */
-    const UPLOAD_FOLDER = 'backups';
+    const BACKUP_FOLDER = 'backups';
 
     /**
      * @var string
@@ -22,7 +22,7 @@ class BackupAllData extends Command
     /**
      * @var string
      */
-    const FILENAME_FORMAT = 'xml';
+    const FILE_FORMAT = 'xml';
 
     /**
      * The name and signature of the console command.
@@ -63,7 +63,15 @@ class BackupAllData extends Command
 
         $this->_preparePath();
 
-        File::put($this->_getBackupsPath() . date(self::FILENAME_DATE_FORMAT) . '.' . self::FILENAME_FORMAT, $xmlData);
+        $dateTime = date(self::FILENAME_DATE_FORMAT);
+
+        $fullPathToFile = $this->_getBackupsPath() . $dateTime . '.' . self::FILE_FORMAT;
+
+        if(File::put($fullPathToFile, $xmlData))
+        {
+            $this->info('Backup was saved' . ' ('. $fullPathToFile . ')');
+        }
+        else $this->error('Something went wrong while saving file!');
     }
 
     /**
@@ -79,6 +87,6 @@ class BackupAllData extends Command
      */
     private function _getBackupsPath()
     {
-        return resource_path(self::UPLOAD_FOLDER) . '/';
+        return resource_path(self::BACKUP_FOLDER) . '/';
     }
 }
