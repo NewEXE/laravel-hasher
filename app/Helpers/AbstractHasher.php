@@ -40,6 +40,16 @@ abstract class AbstractHasher
     }
 
     /**
+     * @param $texts
+     * @param $algos
+     * @return bool
+     */
+    public function encodeMany($texts, $algos)
+    {
+        return $this->repository->encodeMany($texts, $algos);
+    }
+
+    /**
      * @return array
      */
     public function getEncoded()

@@ -16,11 +16,11 @@ class HashAlgorithmsSeeder extends Seeder
     {
         if(Schema::hasTable(HashAlgorithm::getTableName()))
         {
-            $algos = HMACHasher::getAllAvailableAlgos();
+            $algos = HMACHasher::getAllAvailableAlgos(false);
 
             foreach ($algos as $algo)
             {
-                HashAlgorithm::firstOrCreate(['name' => HMACHasher::getRowsPrefix() . $algo]);
+                HashAlgorithm::firstOrCreate(['name' => $algo]);
             }
 
         }

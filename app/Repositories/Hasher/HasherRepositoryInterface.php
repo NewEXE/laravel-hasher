@@ -7,6 +7,7 @@
  */
 
 namespace App\Repositories\Hasher;
+use Illuminate\Support\Collection;
 
 /**
  * Interface HasherRepositoryInterface
@@ -15,11 +16,21 @@ namespace App\Repositories\Hasher;
 interface HasherRepositoryInterface
 {
     /**
-     * @param string $text
-     * @param null $algos
+     * @param $user
+     * @param mixed $text
+     * @param Collection $algos
+     * @param Collection $availableAlgos
      * @return mixed
      */
-    public function encode(string $text, $algos = null): bool;
+    public function encode($user, $text, $algos, $availableAlgos): bool;
+
+    /**
+     * @param $user
+     * @param mixed $strings
+     * @param mixed|null $algos
+     * @return bool
+     */
+    public function encodeMany($user, $strings, $algos): bool;
 
     /**
      * @return array
@@ -32,9 +43,9 @@ interface HasherRepositoryInterface
     public function saveEncoded(): bool;
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getAllAvailableAlgos(): array;
+    public function getAllAvailableAlgos();
 
     /**
      * @return string

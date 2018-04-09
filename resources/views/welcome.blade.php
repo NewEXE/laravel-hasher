@@ -82,7 +82,7 @@
                     Laravel
                 </div>
 
-                <form action="{{ route('user-hashes.store') }}" method="post">
+                <form action="{{ route('store') }}" method="post">
                     {{ csrf_field() }}
 
                     <select name="inputAlgorithms[]" multiple>

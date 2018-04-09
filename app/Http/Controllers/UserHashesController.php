@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\HMACHasher;
+use App\Models\HashAlgorithm;
+use App\Models\User;
+use App\Models\UserHash;
+use App\Models\Vocabulary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class UserHashesController extends Controller
 {
@@ -13,7 +19,10 @@ class UserHashesController extends Controller
      */
     public function index()
     {
-        //
+        $words = Vocabulary::all();
+        $algorithms = HashAlgorithm::all();
+
+        return view('welcome', compact('words', 'algorithms'));
     }
 
     /**
@@ -29,12 +38,25 @@ class UserHashesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param User $user
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        dd($request->all());
+        $user = $user->saveIfNotExists();
+
+        /** @var Collection $algorithms */
+        $algorithms = HashAlgorithm::whereIn('id', $request->inputAlgorithms)->get(['id', 'name'])->keyBy('id');
+
+        $words = Vocabulary::whereIn('id', $request->inputWords)->get(['id', 'word']);
+
+        HMACHasher::encodeMany($user, $words, $algorithms);
+
+        $hashes = HMACHasher::getEncoded();
+
+        dump($hashes);
+
     }
 
     /**
